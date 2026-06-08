@@ -40,7 +40,7 @@ class OpcUaServerProjection:
         self.server.set_server_name(self.name)
         
         # Establish isolated custom manufacturing namespace
-        self.idx = await self.server.register_namespace("http://fab.mes.org/lithography/")
+        self.idx = await self.server.register_namespace("http://qpiai.tech/lithography/")
         
         # 1. Instantiate Core Root Equipment Object Node
         root_objects = self.server.nodes.objects

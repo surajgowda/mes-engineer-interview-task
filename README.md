@@ -7,7 +7,7 @@ This repository houses a multi-layer, protocol-agnostic integration adapter buil
 
 ## 1. System Architecture & Modularity
 
-The engineering footprint of this application is divided into **three completely decoupled layers**, establishing a unidirectional data pipe. This strict separation satisfies the **Modularity (30 pts)**, **Modeling Quality (25 pts)**, and **Correctness (15 pts)** grading criteria by preventing protocol-specific requirements from bleeding into core state machine processing logic.
+The engineering footprint of this application is divided into **three completely decoupled layers**, establishing a unidirectional data pipe. 
 
 ```
        [ LEGACY RAW TEXT LOGS ]
@@ -60,7 +60,7 @@ Logs are fundamentally a *stateless stream of events*, whereas factory automatio
 
 ## 3. Explicit Malformed-Input Policy
 
-To secure **Robustness (15 pts)**, the adapter strictly enforces a non-crashing, tolerant quarantine pipeline. **Silently producing incorrect numbers or crashing a long-running factory daemon is forbidden.**
+The adapter strictly enforces a non-crashing, tolerant quarantine pipeline. **Silently producing incorrect numbers or crashing a long-running factory daemon is forbidden.**
 
 * **Rule 1: System Banner Isolation:** Lines with structural header markers (e.g., `==== logrotate: reopened LS-200.log ====`) or lines lacking standard pipe (`|`) delimiters are safely filtered out at the parser gate as expected operational artifacts.
 * **Rule 2: Torn/Truncated Terminal Lines:** In the event of a system crash mid-write (such as the torn line terminating part1: `2026-05-20T08:01:52|EVENT|evt=WAFER_STAR`), Layer 1 isolates the exception via local `try...except` bounds. The adapter increments a `malformed_lines_count` metric, logs a high-visibility warning context to `stderr`, skips the broken row, and continues processing the subsequent line.
