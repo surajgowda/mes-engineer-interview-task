@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="720" viewBox="0 0 1080 720" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowB" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+
+  <rect width="1080" height="720" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="40" y="46" font-size="30" font-weight="700" fill="#0f172a">LithoStepper LS-200</text>
+  <text x="40" y="72" font-size="15" fill="#475569">A fictional research-fab photolithography stepper. It has no SECS/GEM and no OPC UA interface &#8212; it only writes flat text log lines.</text>
+  <line x1="40" y1="86" x2="1040" y2="86" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Band 1: process pipeline -->
+  <text x="40" y="118" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1d4ed8">WHAT IT DOES &#183; ONE WAFER&#8217;S JOURNEY (repeated for every wafer in a lot)</text>
+
+  <!-- Card template values -->
+  <!-- Card 1 LOAD -->
+  <g>
+    <rect x="40" y="134" width="225" height="118" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="58" y="162" font-size="17" font-weight="700" fill="#0f172a">1 &#183; LOAD</text>
+    <text x="58" y="186" font-size="12.5" fill="#334155">Robot pulls a wafer from the</text>
+    <text x="58" y="203" font-size="12.5" fill="#334155">lot cassette onto the stage.</text>
+    <text x="58" y="233" font-size="12" fill="#059669" font-weight="600">emits  WAFER_START</text>
+    <text x="58" y="248" font-size="11" fill="#64748b">lot, wafer, slot</text>
+  </g>
+  <!-- Card 2 ALIGN -->
+  <g>
+    <rect x="295" y="134" width="225" height="118" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="313" y="162" font-size="17" font-weight="700" fill="#0f172a">2 &#183; ALIGN</text>
+    <text x="313" y="186" font-size="12.5" fill="#334155">Aligns wafer to the reticle;</text>
+    <text x="313" y="203" font-size="12.5" fill="#334155">measures residual error.</text>
+    <text x="313" y="233" font-size="12" fill="#059669" font-weight="600">emits  ALIGN_COMPLETE</text>
+    <text x="313" y="248" font-size="11" fill="#64748b">align_resid_nm</text>
+  </g>
+  <!-- Card 3 EXPOSE -->
+  <g>
+    <rect x="550" y="134" width="225" height="118" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="568" y="162" font-size="17" font-weight="700" fill="#0f172a">3 &#183; EXPOSE</text>
+    <text x="568" y="186" font-size="12.5" fill="#334155">Light &#8594; reticle &#8594; lens &#8594; wafer,</text>
+    <text x="568" y="203" font-size="12.5" fill="#334155">stepping across fields (shots).</text>
+    <text x="568" y="233" font-size="12" fill="#059669" font-weight="600">emits  EXPOSE_COMPLETE</text>
+    <text x="568" y="248" font-size="11" fill="#64748b">dose_mj_cm2, fields</text>
+  </g>
+  <!-- Card 4 UNLOAD -->
+  <g>
+    <rect x="805" y="134" width="225" height="118" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="823" y="162" font-size="17" font-weight="700" fill="#0f172a">4 &#183; UNLOAD</text>
+    <text x="823" y="186" font-size="12.5" fill="#334155">Wafer returns to the cassette;</text>
+    <text x="823" y="203" font-size="12.5" fill="#334155">next wafer begins.</text>
+    <text x="823" y="233" font-size="12" fill="#059669" font-weight="600">emits  WAFER_COMPLETE</text>
+    <text x="823" y="248" font-size="11" fill="#64748b">lot, wafer</text>
+  </g>
+  <!-- pipeline arrows -->
+  <line x1="266" y1="178" x2="293" y2="178" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="521" y1="178" x2="548" y2="178" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="776" y1="178" x2="803" y2="178" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- sensors strip -->
+  <rect x="40" y="266" width="990" height="34" rx="8" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="58" y="288" font-size="12.5" fill="#3730a3"><tspan font-weight="700">Throughout (more often during EXPOSE) the tool samples sensors &#8594; TELEM:</tspan>  stage_temp_c &#183; chuck_vac_kpa &#183; laser_mj &#183; illum_pct &#183; focus_nm</text>
+
+  <!-- Band 2: event lifecycle -->
+  <text x="40" y="338" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1d4ed8">EVENT LIFECYCLE (the order events appear in the log)</text>
+  <g font-size="11.5" fill="#0f172a">
+    <rect x="40" y="366" width="92" height="30" rx="15" fill="#dbeafe" stroke="#93c5fd"/>
+    <text x="86" y="385" text-anchor="middle">LOT_START</text>
+    <rect x="160" y="360" width="560" height="42" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-dasharray="4 3"/>
+    <text x="172" y="356" font-size="10.5" fill="#64748b">per wafer &#215; N</text>
+    <rect x="172" y="368" width="118" height="26" rx="13" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="231" y="385" text-anchor="middle">WAFER_START</text>
+    <rect x="300" y="368" width="130" height="26" rx="13" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="365" y="385" text-anchor="middle">ALIGN_COMPLETE</text>
+    <rect x="440" y="368" width="138" height="26" rx="13" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="509" y="385" text-anchor="middle">EXPOSE_COMPLETE</text>
+    <rect x="588" y="368" width="122" height="26" rx="13" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="649" y="385" text-anchor="middle">WAFER_COMPLETE</text>
+    <rect x="748" y="366" width="108" height="30" rx="15" fill="#dbeafe" stroke="#93c5fd"/>
+    <text x="802" y="385" text-anchor="middle">LOT_COMPLETE</text>
+  </g>
+  <line x1="132" y1="381" x2="158" y2="381" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="720" y1="381" x2="746" y2="381" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Band 3: E10 state timeline -->
+  <text x="40" y="430" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1d4ed8">EQUIPMENT STATE OVER TIME (SEMI E10 &#8212; logged as STATE lines)</text>
+  <g font-size="11" fill="#0f172a">
+    <rect x="40" y="444" width="120" height="34" rx="6" fill="#e2e8f0" stroke="#cbd5e1"/>
+    <text x="100" y="466" text-anchor="middle">NON_SCHEDULED</text>
+    <rect x="168" y="444" width="120" height="34" rx="6" fill="#fef9c3" stroke="#fde047"/>
+    <text x="228" y="466" text-anchor="middle">STANDBY</text>
+    <rect x="296" y="444" width="150" height="34" rx="6" fill="#dcfce7" stroke="#86efac"/>
+    <text x="371" y="466" text-anchor="middle" font-weight="600">PRODUCTIVE</text>
+    <rect x="454" y="444" width="150" height="34" rx="6" fill="#fee2e2" stroke="#fca5a5"/>
+    <text x="529" y="466" text-anchor="middle" font-weight="600">UNSCHEDULED</text>
+    <rect x="612" y="444" width="150" height="34" rx="6" fill="#dcfce7" stroke="#86efac"/>
+    <text x="687" y="466" text-anchor="middle" font-weight="600">PRODUCTIVE</text>
+    <rect x="770" y="444" width="110" height="34" rx="6" fill="#fef9c3" stroke="#fde047"/>
+    <text x="825" y="466" text-anchor="middle">STANDBY</text>
+    <rect x="888" y="444" width="142" height="34" rx="6" fill="#e0f2fe" stroke="#7dd3fc"/>
+    <text x="959" y="466" text-anchor="middle">SCHEDULED (PM)</text>
+  </g>
+  <line x1="40" y1="490" x2="1030" y2="490" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="1024" y="505" font-size="10.5" fill="#64748b" text-anchor="end">time</text>
+  <text x="454" y="505" font-size="11" fill="#b91c1c">&#9650; ALARM set (focus out of spec) drops the tool to UNSCHEDULED until it is CLEARed</text>
+
+  <!-- Band 4: output + adapter -->
+  <line x1="40" y1="524" x2="1040" y2="524" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="40" y="552" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1d4ed8">THE PROBLEM &#8212; AND YOUR JOB</text>
+
+  <!-- output box -->
+  <rect x="40" y="566" width="470" height="120" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="58" y="592" font-size="13.5" font-weight="700" fill="#0f172a">The tool writes one flat line per record to</text>
+  <text x="58" y="610" font-size="13.5" font-weight="700" fill="#0f172a">LS-200.log, which rotates (part1, part2, &#8230;).</text>
+  <rect x="58" y="622" width="434" height="48" rx="6" fill="#0f172a"/>
+  <text x="70" y="641" font-size="10.5" fill="#7dd3fc" font-family="'Courier New', monospace">2026-05-20T08:00:13Z|EVENT|evt=EXPOSE_COMPLETE</text>
+  <text x="70" y="658" font-size="10.5" fill="#7dd3fc" font-family="'Courier New', monospace">|lot=LOT4471|wafer=01|fields=84|dose_mj_cm2=32.2</text>
+
+  <!-- big arrow -->
+  <line x1="516" y1="626" x2="566" y2="626" stroke="#1d4ed8" stroke-width="3" marker-end="url(#arrowB)"/>
+
+  <!-- adapter box -->
+  <rect x="572" y="566" width="458" height="120" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="590" y="592" font-size="13.5" font-weight="700" fill="#1e3a8a">YOUR ADAPTER turns those logs into a live,</text>
+  <text x="590" y="610" font-size="13.5" font-weight="700" fill="#1e3a8a">queryable, standard interface:</text>
+  <text x="590" y="634" font-size="12" fill="#1e40af">parse  &#8594;  canonical model  &#8594;  interface projection</text>
+  <text x="590" y="654" font-size="11" fill="#475569">canonical model = current state &#183; latest telemetry &#183; current lot/wafer &#183; active alarms</text>
+  <text x="590" y="672" font-size="11" fill="#475569">projection = OPC UA  (or a typed, documented schema)   &#183;  + optional SPC</text>
+
+  <text x="40" y="706" font-size="11" fill="#94a3b8">Sample logs in this package use small lots (4&#8211;5 wafers) for readability; a real lot is ~25 wafers.</text>
+</svg>
